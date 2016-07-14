@@ -15,10 +15,17 @@ def fibit(n)
 end
 
 def fitre(n,arr)
-	 arr[0..n] if n < 2
-	arr << ((fitre(n-2)[-1] + fitre(n-3)[-1]) if n >= 2)
+	return arr if n <= 1
+	arr << (arr[-1] + arr[-2])
+	fitre(n-1,arr)
 end
 
-arr = []
+def addthem(n, arr)
+	arr << (arr[n-1] + arr[n-2])
+	arr
+end
+
+arr = [0, 1]
 puts fibit(8)
-print fitre(4)
+print fitre(8, arr)
+#print addthem(2, arr)
