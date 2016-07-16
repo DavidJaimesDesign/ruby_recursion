@@ -5,16 +5,31 @@ def merge_sort_prep(arr)
 end
 
 def depth(arr)
-	return 0 unless a.is_a?(Array)
+	return 0 unless arr.is_a?(Array)
 	return 1 + depth(arr[0])
 end
 
-def merge_sort_core(arr)
+def merge_sort_core(arr)#try to work with just even numbers first
 	return arr if depth(arr) == 1
-	arr_d = []
+	arr_d = ["Worked"]
 
+	while depth(arr) == 2
+		if arr[0][0] > arr[1][0] 
+			arr_d << arr[1][0]
+			arr.delete(arr[0])
+		elsif arr[0][0] < arr[1][0] 
+			arr_d << arr[0][0]
+			arr.delete(arr[0])
+		else
+			arr.flatten
+			puts "not bigger"
+			break
+		end 
 
-	merge_sort_core(arr_d)
+		break if depth(arr) == 1
+	end
+	arr_d
+	#merge_sort_core(arr_d)
 end
 
 def merge_sort(arr)
@@ -22,4 +37,4 @@ def merge_sort(arr)
 end
 
 arr = [2,5,6,3,76,34,753,3,4,2,100,56]
-merge_sort_prep(arr)
+print merge_sort(arr) 
