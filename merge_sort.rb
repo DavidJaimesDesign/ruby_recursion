@@ -10,26 +10,54 @@ def depth(arr)
 end
 
 def merge_sort_core(arr)#try to work with just even numbers first
-	return arr if depth(arr) == 1
-	arr_d = ["Worked"]
+	return arr.flatten! if depth(arr) == 2 && arr.length == 1
+	arr_d = []
+	split = arr[0].length*2
+	puts split
 
-	while depth(arr) == 2
-		if arr[0][0] > arr[1][0] 
+	while arr.any? do 
+		if arr.length == 1
+			arr_d << arr[0]
+			arr.delete_at(0)
+
+		elsif arr[0].empty? && arr[1].empty?
+			arr.delete_at(0)
+			arr.delete_at(0)
+
+		elsif arr[0].empty? && arr[1].any?
+			arr_d << arr[1][0..1]
+			arr.delete_at(0)
+			arr.delete_at(0)
+
+		elsif arr[0].any? && arr[1].empty?
+			arr_d << arr[0][0]
+			arr.delete_at(0)
+			arr.delete_at(0)
+
+		elsif arr[0][0] > arr[1][0] 
 			arr_d << arr[1][0]
-			arr.delete(arr[0])
+			x = arr[1][0]
+			arr[1].delete(x)
+
 		elsif arr[0][0] < arr[1][0] 
 			arr_d << arr[0][0]
-			arr.delete(arr[0])
-		else
-			arr.flatten
-			puts "not bigger"
-			break
-		end 
+			x =  arr[0][0]
+			arr[0].delete(x)
 
-		break if depth(arr) == 1
+		elsif  arr[0][0] == arr[1][0]
+			arr_d << arr[0][0]
+			arr_d << arr[1][0]
+			x = arr[0][0]
+			y = arr[1][0]
+			arr[0].delete(x)
+			arr[1].delete(y)
+		end 
+		puts arr.inspect
+		puts arr_d.inspect
 	end
-	arr_d
-	#merge_sort_core(arr_d)
+	arr_d.flatten!
+	arr_c = arr_d.each_slice(split).to_a
+	merge_sort_core(arr_c)
 end
 
 def merge_sort(arr)
